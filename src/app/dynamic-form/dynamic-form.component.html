@@ -1,1 +1,42 @@
-<p>dynamic-form works!</p>
+<form [formGroup]="dynamicForm" class="dynamic-form">
+    @for (field of jsonForm()?.fields; track field) {
+        @if (field.type == "text") {
+            <mat-form-field>
+                <input matInput [placeholder]="field.label" [formControlName]="field.name">
+            </mat-form-field>
+        }
+        @if (field.type == "textarea") {
+            <mat-form-field class="json-form-input">
+                <textarea matInput [placeholder]="field.label" [formControlName]="field.name"></textarea>
+            </mat-form-field>
+        }
+        @if (field.type == "dropdown") {
+            <mat-form-field>
+                <mat-label>Favorite food</mat-label>
+                <mat-select>
+                  @for (option of field.options; track option) {
+                    <mat-option [value]="option">{{ option }}</mat-option>
+                  }
+                </mat-select>
+            </mat-form-field>
+        }
+        @if (field.type == "checkbox") {
+            <section>
+                <span class="example-list-section">
+                    @for (option of field.options; track option) {
+                        <mat-checkbox checked="false">
+                        {{option}}
+                        </mat-checkbox>
+                    }
+                </span>
+            </section>
+        }
+        @if (field.type == "radio") {
+            <mat-radio-group [ariaLabel]="field.label">
+                @for (option of field.options; track option) {
+                    <mat-radio-button [value]="option">{{ option }}</mat-radio-button>
+                }
+            </mat-radio-group>
+        }
+    }
+</form>

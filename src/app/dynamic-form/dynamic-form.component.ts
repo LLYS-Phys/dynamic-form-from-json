@@ -1,12 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { FormConfig } from '../models/form.model';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 @Component({
   selector: 'app-dynamic-form',
   standalone: true,
-  imports: [],
+  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCheckboxModule, MatRadioModule],
   templateUrl: './dynamic-form.component.html',
   styleUrl: './dynamic-form.component.scss'
 })
 export class DynamicFormComponent {
+  jsonForm = input<FormConfig>()
 
+  dynamicForm = new FormGroup({})
+
+  get dynamicFormArray() {
+    return Object.values(this.dynamicForm.controls)
+  }
+
+  get formControl() {
+    return this.dynamicForm.controls as AbstractControl[]
+  }
+
+  ngOnInit() {
+    this.jsonForm()?.fields.forEach((field) => {
+      this.dynamicForm.addControl(field.name, new FormControl())
+    })
+  }
 }

@@ -11,4 +11,8 @@
     }
 
     <button mat-stroked-button [disabled]="jsonForm.controls.json.value == ''">Generate form</button>
+
+    @if (generatedFormJson) {
+        <app-dynamic-form [jsonForm]="generatedFormJson"></app-dynamic-form>
+    }
 </form>

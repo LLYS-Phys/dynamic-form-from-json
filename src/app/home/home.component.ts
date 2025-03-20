@@ -5,11 +5,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormConfig } from '../models/form.model';
 import { helperFunctions } from '../helpers/helper.functions';
+import { DynamicFormComponent } from '../dynamic-form/dynamic-form.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, DynamicFormComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -50,7 +51,9 @@ Test JSON:
     "fields": [
       { "type": "text", "label": "First Name", "name": "firstName" },
       { "type": "text", "label": "Last Name", "name": "lastName" },
-      { "type": "dropdown", "label": "Role", "name": "role", "options": ["User", "Admin"] }
+      { "type": "dropdown", "label": "Role", "name": "role", "options": ["User", "Admin"] },
+       {"type": "checkbox", "label": "Checkbox Test", "name": "checkbox", "options": ["User", "Admin"]},
+       {"type": "radio", "label": "Checkbox Test", "name": "checkbox", "options": ["User", "Admin"]}
     ]
 }
 
