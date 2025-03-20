@@ -1,0 +1,9 @@
+.json-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    .json-form-input {
+        min-width: 30rem;
+    }
+}
