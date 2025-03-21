@@ -4,13 +4,33 @@ export interface FieldConfig {
     name: string;
     options?: string[];
     value: string;
-    validations?: { type: string; value?: any; message: string }[];
+    validations?: Validation[];
+    dependencies?: DependenciesGroup[];
 }
 
 export interface FormConfig {
     fields: FieldConfig[];
-    groups?: {
-      title: string;
-      fields: FieldConfig[];
-    }[];
-}  
+    groups?: FormGroupConfig[];
+    dependencies?: DependenciesGroup[];
+}
+
+export interface FormGroupConfig {
+  title: string;
+  fields: FieldConfig[]
+}
+
+interface Validation {
+    type: string;
+    value?: any;
+    message: string;
+}
+
+interface Dependency {
+    field: string; 
+    value: string;
+}
+
+interface DependenciesGroup {
+    type: 'AND' | 'OR'
+    dependencies: Dependency[]
+}

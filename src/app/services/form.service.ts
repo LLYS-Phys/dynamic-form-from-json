@@ -1,12 +1,12 @@
 import { Injectable } from "@angular/core";
-import { FieldConfig } from "../models/form.model";
+import { FieldConfig, FormGroupConfig } from "../models/form.model";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Injectable({
     providedIn: 'root'
 })
 export class FormService {
-    generateForm(form: FormGroup, fields?: FieldConfig[], groups?: {title: string, fields: FieldConfig[]}[]) {
+    generateForm(form: FormGroup, fields?: FieldConfig[], groups?: FormGroupConfig[]) {
         fields?.forEach((field) => {
             this.generateField(field, form)
           })
@@ -17,7 +17,7 @@ export class FormService {
         })
     }
 
-    fillAllFields(form: FormGroup, fields?: FieldConfig[], groups?: {title: string, fields: FieldConfig[]}[]) {
+    fillAllFields(form: FormGroup, fields?: FieldConfig[], groups?: FormGroupConfig[]) {
         fields?.forEach((field) => {
             this.fillField(field, form)
         })
