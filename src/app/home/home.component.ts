@@ -53,7 +53,8 @@ Test JSON:
     { "type": "text", "label": "Last Name", "name": "lastName", "value": "" },
     { "type": "dropdown", "label": "Role", "name": "role", "options": ["User", "Admin"], "value": "" },
     { "type": "checkbox", "label": "Checkbox Test", "name": "checkbox", "value": "" },
-    { "type": "radio", "label": "Radio Test", "name": "radio", "options": ["User", "Admin"], "value": "" }
+    { "type": "radio", "label": "Radio Test", "name": "radio", "options": ["User", "Admin"], "value": "" },
+    { "type": "custom", "label": "email", "name": "email", "value": "", "validations": [{ "type": "required", "message": "Can't be empty" }, { "type": "email", "message": "Must be a valid email" }, { "type": "minLength", "value": "10", "message": "Must be at least 10 symbols" }] }
   ],
   "groups": [
     {

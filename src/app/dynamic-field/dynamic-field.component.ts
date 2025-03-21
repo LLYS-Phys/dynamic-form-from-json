@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { FieldConfig } from '../models/form.model';
-import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
@@ -17,4 +17,15 @@ import { MatRadioModule } from '@angular/material/radio';
 export class DynamicFieldComponent {
   field = input<FieldConfig>();
   control = input<FormControl>();
+
+  getFirstError(control: AbstractControl, validations: any[]) {
+    if (control?.errors) {
+      for (let validation of validations) {
+        if (control.hasError(validation.type.toLowerCase())) {
+          return validation.message;
+        }
+      }
+    }
+    return null;
+  }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
-import { FieldConfig, FormConfig } from "../models/form.model";
-import { FormControl, FormGroup } from "@angular/forms";
+import { FieldConfig } from "../models/form.model";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Injectable({
     providedIn: 'root'
@@ -30,6 +30,29 @@ export class FormService {
 
     private generateField(field: FieldConfig, form: FormGroup) {
         form.addControl(field.name, new FormControl())
+        if (field.type == 'custom') {
+            field.validations?.forEach((validation) => {
+                switch (validation.type) {
+                    case 'required': 
+                        form.controls[field.name].addValidators([Validators.required])
+                        break
+                    case 'email':
+                        form.controls[field.name].addValidators([Validators.email])
+                        break
+                    case 'minLength':
+                        form.controls[field.name].addValidators([Validators.minLength(validation.value)])
+                        break
+                    case 'maxLength':
+                        form.controls[field.name].addValidators([Validators.maxLength(validation.value)])
+                        break
+                    case 'pattern':
+                        form.controls[field.name].addValidators([Validators.pattern(validation.value)])
+                        break
+                    default: 
+                        break
+                }
+            })
+        }
     }
 
     private fillField(field: FieldConfig, form: FormGroup) {

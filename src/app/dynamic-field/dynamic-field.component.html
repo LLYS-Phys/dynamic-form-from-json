@@ -33,3 +33,11 @@
         }
     </mat-radio-group>
 }
+@if (field()?.type === "custom") {
+    <mat-form-field>
+        <input matInput [placeholder]="field()?.label || ''" [formControl]="control()!">
+        @if (control()!.invalid && control()!.touched){
+            <mat-error>{{ getFirstError(control()!, field()?.validations!) }}</mat-error>
+        }
+    </mat-form-field>
+}

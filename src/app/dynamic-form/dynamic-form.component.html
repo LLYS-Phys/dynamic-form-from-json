@@ -10,5 +10,5 @@
         }
     }
 
-    <button mat-stroked-button type="submit">Submit</button>
+    <button mat-stroked-button type="submit" [disabled]="!dynamicForm.valid">Submit</button>
 </form>
