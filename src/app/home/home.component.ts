@@ -49,11 +49,11 @@ Test JSON:
 
 {
     "fields": [
-      { "type": "text", "label": "First Name", "name": "firstName" },
-      { "type": "text", "label": "Last Name", "name": "lastName" },
-      { "type": "dropdown", "label": "Role", "name": "role", "options": ["User", "Admin"] },
-       {"type": "checkbox", "label": "Checkbox Test", "name": "checkbox", "options": ["User", "Admin"]},
-       {"type": "radio", "label": "Checkbox Test", "name": "checkbox", "options": ["User", "Admin"]}
+      { "type": "text", "label": "First Name", "name": "firstName", "value": "" },
+      { "type": "text", "label": "Last Name", "name": "lastName", "value": "" },
+      { "type": "dropdown", "label": "Role", "name": "role", "options": ["User", "Admin"], "value": "" },
+       {"type": "checkbox", "label": "Checkbox Test", "name": "checkbox", "value": ""},
+       {"type": "radio", "label": "Radio Test", "name": "radio", "options": ["User", "Admin"], "value": ""}
     ]
 }
 

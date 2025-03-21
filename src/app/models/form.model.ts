@@ -3,6 +3,7 @@ export interface FieldConfig {
     label: string;
     name: string;
     options?: string[];
+    value: string;
     validations?: { type: string; value?: any; message: string }[];
 }
 

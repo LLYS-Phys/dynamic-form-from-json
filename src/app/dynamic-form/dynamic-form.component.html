@@ -1,4 +1,4 @@
-<form [formGroup]="dynamicForm" class="dynamic-form">
+<form [formGroup]="dynamicForm" class="dynamic-form" (submit)="submitForm($event)">
     @for (field of jsonForm()?.fields; track field) {
         @if (field.type == "text") {
             <mat-form-field>
@@ -12,8 +12,8 @@
         }
         @if (field.type == "dropdown") {
             <mat-form-field>
-                <mat-label>Favorite food</mat-label>
-                <mat-select>
+                <mat-label>{{ field.label }}</mat-label>
+                <mat-select [formControlName]="field.name">
                   @for (option of field.options; track option) {
                     <mat-option [value]="option">{{ option }}</mat-option>
                   }
@@ -22,21 +22,20 @@
         }
         @if (field.type == "checkbox") {
             <section>
-                <span class="example-list-section">
-                    @for (option of field.options; track option) {
-                        <mat-checkbox checked="false">
-                        {{option}}
-                        </mat-checkbox>
-                    }
-                </span>
+                <mat-checkbox checked="false" [formControlName]="field.name">
+                {{ field.label }}
+                </mat-checkbox>
             </section>
         }
         @if (field.type == "radio") {
-            <mat-radio-group [ariaLabel]="field.label">
+            <mat-radio-group [ariaLabel]="field.label" [formControlName]="field.name">
+                <mat-label>{{ field.label }}</mat-label>
                 @for (option of field.options; track option) {
                     <mat-radio-button [value]="option">{{ option }}</mat-radio-button>
                 }
             </mat-radio-group>
         }
     }
+
+    <button mat-stroked-button>Submit</button>
 </form>
