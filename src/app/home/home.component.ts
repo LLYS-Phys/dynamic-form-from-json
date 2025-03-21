@@ -48,13 +48,23 @@ export class HomeComponent {
 Test JSON:
 
 {
-    "fields": [
-      { "type": "text", "label": "First Name", "name": "firstName", "value": "" },
-      { "type": "text", "label": "Last Name", "name": "lastName", "value": "" },
-      { "type": "dropdown", "label": "Role", "name": "role", "options": ["User", "Admin"], "value": "" },
-       {"type": "checkbox", "label": "Checkbox Test", "name": "checkbox", "value": ""},
-       {"type": "radio", "label": "Radio Test", "name": "radio", "options": ["User", "Admin"], "value": ""}
-    ]
+  "fields": [
+    { "type": "text", "label": "First Name", "name": "firstName", "value": "" },
+    { "type": "text", "label": "Last Name", "name": "lastName", "value": "" },
+    { "type": "dropdown", "label": "Role", "name": "role", "options": ["User", "Admin"], "value": "" },
+    { "type": "checkbox", "label": "Checkbox Test", "name": "checkbox", "value": "" },
+    { "type": "radio", "label": "Radio Test", "name": "radio", "options": ["User", "Admin"], "value": "" }
+  ],
+  "groups": [
+    {
+      "title": "Form Group",
+      "fields": [
+        { "type": "checkbox", "label": "Checkbox in group 1", "name": "checkbox1", "value": "" },
+        { "type": "checkbox", "label": "Checkbox in group 2", "name": "checkbox2", "value": "" },
+        { "type": "checkbox", "label": "Checkbox in group 3", "name": "checkbox3", "value": "" }
+      ]
+    }
+  ]
 }
 
 */

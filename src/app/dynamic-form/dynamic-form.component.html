@@ -36,6 +36,46 @@
             </mat-radio-group>
         }
     }
+    @for (group of jsonForm()?.groups; track group) {
+        <mat-label>{{ group.title }}</mat-label>
+        @for (field of group.fields; track field) {
+            @if (field.type == "text") {
+                <mat-form-field>
+                    <input matInput [placeholder]="field.label" [formControlName]="field.name">
+                </mat-form-field>
+            }
+            @if (field.type == "textarea") {
+                <mat-form-field class="json-form-input">
+                    <textarea matInput [placeholder]="field.label" [formControlName]="field.name"></textarea>
+                </mat-form-field>
+            }
+            @if (field.type == "dropdown") {
+                <mat-form-field>
+                    <mat-label>{{ field.label }}</mat-label>
+                    <mat-select [formControlName]="field.name">
+                      @for (option of field.options; track option) {
+                        <mat-option [value]="option">{{ option }}</mat-option>
+                      }
+                    </mat-select>
+                </mat-form-field>
+            }
+            @if (field.type == "checkbox") {
+                <section>
+                    <mat-checkbox checked="false" [formControlName]="field.name">
+                    {{ field.label }}
+                    </mat-checkbox>
+                </section>
+            }
+            @if (field.type == "radio") {
+                <mat-radio-group [ariaLabel]="field.label" [formControlName]="field.name">
+                    <mat-label>{{ field.label }}</mat-label>
+                    @for (option of field.options; track option) {
+                        <mat-radio-button [value]="option">{{ option }}</mat-radio-button>
+                    }
+                </mat-radio-group>
+            }
+        }
+    }
 
     <button mat-stroked-button>Submit</button>
 </form>

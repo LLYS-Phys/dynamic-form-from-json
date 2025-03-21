@@ -28,6 +28,11 @@ export class DynamicFormComponent {
     this.jsonForm()?.fields.forEach((field) => {
       this.dynamicForm.addControl(field.name, new FormControl())
     })
+    this.jsonForm()?.groups?.forEach((group) => {
+      group.fields.forEach((field) => {
+        this.dynamicForm.addControl(field.name, new FormControl())
+      })
+    })
   }
 
   submitForm(event: Event) {
@@ -40,7 +45,17 @@ export class DynamicFormComponent {
         }
       }
     })
+    this.jsonForm()?.groups?.forEach((group) => {
+      group.fields.forEach((field) => {
+        for (const [key, value] of Object.entries(this.dynamicForm.value)) {
+          if (key == field.name) {
+            field.value = value as string
+          }
+        }
+      })
+    })
 
+    console.log(this.jsonForm())
     console.log(`Output form: ${JSON.stringify(this.jsonForm())}`)
   }
 }
