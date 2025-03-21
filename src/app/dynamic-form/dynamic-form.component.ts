@@ -1,59 +1,36 @@
 import { Component, input } from '@angular/core';
 import { FormConfig } from '../models/form.model';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatRadioModule } from '@angular/material/radio';
+import { DynamicFieldComponent } from "../dynamic-field/dynamic-field.component";
 import { MatButtonModule } from '@angular/material/button';
+import { FormService } from '../services/form.service';
 
 @Component({
   selector: 'app-dynamic-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatCheckboxModule, MatRadioModule, MatButtonModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatButtonModule, DynamicFieldComponent],
   templateUrl: './dynamic-form.component.html',
   styleUrl: './dynamic-form.component.scss'
 })
 export class DynamicFormComponent {
-  jsonForm = input<FormConfig>()
+  constructor(private formService: FormService) {}
 
+  jsonForm = input<FormConfig>()
   dynamicForm = new FormGroup({})
 
-  get formControl() {
-    return this.dynamicForm.controls as AbstractControl[]
+  ngOnInit() {
+    this.formService.generateForm(this.dynamicForm, this.jsonForm()?.fields, this.jsonForm()?.groups)
   }
 
-  ngOnInit() {
-    this.jsonForm()?.fields.forEach((field) => {
-      this.dynamicForm.addControl(field.name, new FormControl())
-    })
-    this.jsonForm()?.groups?.forEach((group) => {
-      group.fields.forEach((field) => {
-        this.dynamicForm.addControl(field.name, new FormControl())
-      })
-    })
+  getControl(name: string): FormControl {
+    return this.dynamicForm.get(name) as FormControl;
   }
 
   submitForm(event: Event) {
     event.preventDefault()
 
-    this.jsonForm()?.fields.forEach((field) => {
-      for (const [key, value] of Object.entries(this.dynamicForm.value)) {
-        if (key == field.name) {
-          field.value = value as string
-        }
-      }
-    })
-    this.jsonForm()?.groups?.forEach((group) => {
-      group.fields.forEach((field) => {
-        for (const [key, value] of Object.entries(this.dynamicForm.value)) {
-          if (key == field.name) {
-            field.value = value as string
-          }
-        }
-      })
-    })
+    this.formService.fillAllFields(this.dynamicForm, this.jsonForm()?.fields, this.jsonForm()?.groups)
 
     console.log(this.jsonForm())
     console.log(`Output form: ${JSON.stringify(this.jsonForm())}`)
