@@ -137,6 +137,14 @@ Test JSON:
   "groups": [
     {
       "title": "Form Group",
+      "dependencies": [
+        {
+          "type": "AND",
+          "dependencies": [
+            { "field": "userId", "value": "TEST" }
+          ]
+        }
+      ],
       "fields": [
         { "type": "checkbox", "label": "Checkbox in group 1", "name": "checkbox1", "value": "" },
         { "type": "checkbox", "label": "Checkbox in group 2", "name": "checkbox2", "value": "" },

@@ -1,5 +1,14 @@
-.hidden {
-    * {
-        background-color: pink;
+:host {
+    &:has(.input.hidden) {
+        height: 0;
+    }
+    .input {
+        opacity: 1;
+        height: 100%;
+        transition: all 0.2s 0.1s;
+        &.hidden {
+            opacity: 0;
+            height: 0;
+        }
     }
 }

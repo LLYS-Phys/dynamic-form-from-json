@@ -1,4 +1,18 @@
-.dynamic-form {
-    display: flex;
-    flex-direction: column;
+:host {
+    .dynamic-form {
+        display: flex;
+        flex-direction: column;
+    }
+    &:has(.group.hidden) {
+        height: 0;
+    }
+    .group {
+        opacity: 1;
+        height: 100%;
+        transition: all 0.2s 0.1s;
+        &.hidden {
+            opacity: 0;
+            height: 0;
+        }
+    }
 }

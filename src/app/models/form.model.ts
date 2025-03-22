@@ -11,12 +11,13 @@ export interface FieldConfig {
 export interface FormConfig {
     fields: FieldConfig[];
     groups?: FormGroupConfig[];
-    dependencies?: DependenciesGroup[];
 }
 
 export interface FormGroupConfig {
   title: string;
-  fields: FieldConfig[]
+  isHidden: boolean;
+  dependencies?: DependenciesGroup[];
+  fields: FieldConfig[];
 }
 
 interface Validation {
@@ -30,7 +31,7 @@ interface Dependency {
     value: string;
 }
 
-export interface DependenciesGroup {
+interface DependenciesGroup {
     type: 'AND' | 'OR'
     dependencies: Dependency[]
 }
