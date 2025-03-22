@@ -24,6 +24,10 @@ export class DynamicFieldComponent {
   parentForm = input<FormGroup>();
   isHidden = false;
 
+  get dependencyStatus(): boolean {
+    return this.isHidden;
+  }
+
   ngOnInit() {
     this.evaluateDependencies();
     
@@ -54,9 +58,5 @@ export class DynamicFieldComponent {
     }
 
     this.isHidden = this.formService.fieldDependencies(fieldConfig, this.parentForm()!)
-  }
-
-  get dependencyStatus(): boolean {
-    return this.isHidden;
   }
 }
