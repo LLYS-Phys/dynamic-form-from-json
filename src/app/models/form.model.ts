@@ -30,7 +30,7 @@ interface Dependency {
     value: string;
 }
 
-interface DependenciesGroup {
+export interface DependenciesGroup {
     type: 'AND' | 'OR'
     dependencies: Dependency[]
 }
