@@ -42,15 +42,6 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     return !group.isHidden;
   }
 
-  submitForm(event: Event) {
-    event.preventDefault()
-
-    this.formService.fillAllFields(this.dynamicForm, this.jsonForm()?.fields, this.jsonForm()?.groups)
-
-    console.log(this.jsonForm())
-    console.log(`Output form: ${JSON.stringify(this.jsonForm())}`)
-  }
-
   evaluateGroupDependencies() {
     const groups = this.jsonForm()?.groups;
     if (!groups) return;
@@ -62,32 +53,16 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         return;
       }
       
-      group.isHidden = !group.dependencies.some(dependencyGroup => {
-        if (!dependencyGroup.dependencies || dependencyGroup.dependencies.length === 0) {
-          return true;
-        }
-  
-        if (dependencyGroup.type === 'OR') {
-          return dependencyGroup.dependencies.some(dependency => 
-            this.checkDependency(dependency)
-          );
-        } 
-        
-        if (dependencyGroup.type === 'AND') {
-          return dependencyGroup.dependencies.every(dependency => 
-            this.checkDependency(dependency)
-          );
-        }
-  
-        return true;
-      });
+      group.isHidden = this.formService.groupDependencies(group, this.dynamicForm)
     });
   }
-  
-  private checkDependency(dependency: any): boolean {
-    const dependentControl = this.dynamicForm.get(dependency.field);
-    if (!dependentControl) return false;
-    
-    return dependentControl.value === dependency.value;
+
+  submitForm(event: Event) {
+    event.preventDefault()
+
+    this.formService.fillAllFields(this.dynamicForm, this.jsonForm()?.fields, this.jsonForm()?.groups)
+
+    console.log(this.jsonForm())
+    console.log(`Output form: ${JSON.stringify(this.jsonForm())}`)
   }
 }

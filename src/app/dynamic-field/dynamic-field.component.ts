@@ -1,4 +1,4 @@
-import { Component, input, inject } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { FieldConfig } from '../models/form.model';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -7,6 +7,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
+import { FormService } from '../services/form.service';
 
 @Component({
   selector: 'app-dynamic-field',
@@ -16,6 +17,8 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dynamic-field.component.scss'
 })
 export class DynamicFieldComponent {
+  constructor(private formService: FormService) {}
+
   field = input.required<FieldConfig>();
   control = input.required<FormControl>();
   parentForm = input<FormGroup>();
@@ -50,34 +53,7 @@ export class DynamicFieldComponent {
       return;
     }
 
-    this.isHidden = !fieldConfig.dependencies.some(dependencyGroup => {
-      if (!dependencyGroup.dependencies || dependencyGroup.dependencies.length === 0) {
-        return true;
-      }
-
-      if (dependencyGroup.type === 'OR') {
-        return dependencyGroup.dependencies.some(dependency => 
-          this.checkDependency(dependency)
-        );
-      } 
-      
-      if (dependencyGroup.type === 'AND') {
-        return dependencyGroup.dependencies.every(dependency => 
-          this.checkDependency(dependency)
-        );
-      }
-
-      return true;
-    });
-  }
-
-  private checkDependency(dependency: any): boolean {
-    if (!this.parentForm()) return false;
-    
-    const dependentControl = this.parentForm()!.get(dependency.field);
-    if (!dependentControl) return false;
-    
-    return dependentControl.value === dependency.value;
+    this.isHidden = this.formService.fieldDependencies(fieldConfig, this.parentForm()!)
   }
 
   get dependencyStatus(): boolean {

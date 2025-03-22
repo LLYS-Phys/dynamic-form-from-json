@@ -20,7 +20,7 @@ export interface FormGroupConfig {
   fields: FieldConfig[];
 }
 
-interface Validation {
+export interface Validation {
     type: string;
     value?: any;
     message: string;
