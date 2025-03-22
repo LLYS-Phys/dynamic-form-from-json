@@ -21,7 +21,7 @@ export interface FormGroupConfig {
 }
 
 export interface Validation {
-    type: string;
+    type: 'required' | 'email' | 'minlength' | 'maxlength' | 'pattern';
     value?: any;
     message: string;
 }
@@ -29,6 +29,7 @@ export interface Validation {
 interface Dependency {
     field: string; 
     value: string;
+    type?: 'minlength' | 'maxlength' | 'email' | 'pattern'
 }
 
 interface DependenciesGroup {

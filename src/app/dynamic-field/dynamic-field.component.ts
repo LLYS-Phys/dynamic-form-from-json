@@ -41,7 +41,7 @@ export class DynamicFieldComponent {
   getFirstError(control: AbstractControl, validations: any[]) {
     if (control?.errors) {
       for (let validation of validations) {
-        if (control.hasError(validation.type.toLowerCase())) {
+        if (control.hasError(validation.type)) {
           return validation.message;
         }
       }

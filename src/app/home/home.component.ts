@@ -62,7 +62,7 @@ Test JSON:
       "validations": [
         { "type": "required", "message": "Can't be empty" }, 
         { "type": "email", "message": "Must be a valid email" }, 
-        { "type": "minLength", "value": "10", "message": "Must be at least 10 symbols" }
+        { "type": "minlength", "value": "10", "message": "Must be at least 10 symbols" }
       ] 
     },
     { 

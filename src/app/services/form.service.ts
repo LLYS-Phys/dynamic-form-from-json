@@ -74,8 +74,8 @@ export class FormService {
     private checkGroupDependency(dependency: any, form: FormGroup): boolean {
         const dependentControl = form.get(dependency.field);
         if (!dependentControl) return false;
-        
-        return dependentControl.value === dependency.value;
+        if (!dependency.type) return dependentControl.value === dependency.value;
+        return true // to add logic about types here
     }
 
     private checkFieldDependency(dependency: any, form: FormGroup): boolean {
@@ -84,7 +84,8 @@ export class FormService {
         const dependentControl = form!.get(dependency.field);
         if (!dependentControl) return false;
         
-        return dependentControl.value === dependency.value;
+        if (!dependency.type) return dependentControl.value === dependency.value;
+        return true // to add logic about types here
       }
 
     private generateField(field: FieldConfig, form: FormGroup) {
@@ -98,10 +99,10 @@ export class FormService {
                     case 'email':
                         form.controls[field.name].addValidators([Validators.email])
                         break
-                    case 'minLength':
+                    case 'minlength':
                         form.controls[field.name].addValidators([Validators.minLength(validation.value)])
                         break
-                    case 'maxLength':
+                    case 'maxlength':
                         form.controls[field.name].addValidators([Validators.maxLength(validation.value)])
                         break
                     case 'pattern':
