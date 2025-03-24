@@ -14,6 +14,9 @@
         Show JSON form
     }
 </button>
+<button mat-fab extended aria-label="Autofill form" class="autofill-form" (click)="autoFillForm()">
+    Autofill form
+</button>
 <form [formGroup]="dynamicForm" class="dynamic-form" (submit)="submitForm($event)" [ngClass]="{'fullWidth': !jsonFormVisible}">
     <h2>Generated Form:</h2>
     @for (field of jsonForm()?.fields || []; track field) {

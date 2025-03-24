@@ -8,6 +8,8 @@ import { FormService } from '../services/form.service';
 import { CommonModule } from '@angular/common';
 import { DependencyService } from '../services/dependency.service';
 import { MatIconModule } from '@angular/material/icon';
+import { ApiService } from '../services/api.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -17,17 +19,28 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './dynamic-form.component.scss'
 })
 export class DynamicFormComponent implements OnInit, OnChanges {
-  constructor(private formService: FormService, private dependencyService: DependencyService, private destroyRef: DestroyRef) {}
+  constructor(
+    private formService: FormService, 
+    private dependencyService: DependencyService, 
+    private destroyRef: DestroyRef,
+    private apiService: ApiService,
+    private http: HttpClient
+  ) {}
 
   jsonFormVisible = true
   jsonForm = input<FormConfig>()
   dynamicForm = new FormGroup({})
+  fetchedData: any | null = null
 
   ngOnInit() {
-    console.log('init')
     this.formService.generateForm(this.dynamicForm, this.jsonForm()?.fields, this.jsonForm()?.groups)
     this.evaluateGroupDependencies()
     this.formsSubscription()
+    this.http.get('http://localhost:3000/data').subscribe({
+      next: (data) => {
+        this.fetchedData = data
+      }
+    })
   }
 
   ngOnChanges() {
@@ -59,6 +72,10 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   changeJsonFormVisibility() {
     this.jsonFormVisible = !this.jsonFormVisible
+  }
+
+  autoFillForm() {
+    this.apiService.autofill(this.dynamicForm, this.fetchedData!)
   }
 
   evaluateGroupDependencies() {

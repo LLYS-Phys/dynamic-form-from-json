@@ -183,4 +183,6 @@ Test JSON:
   ]
 }
 
+JSON server start : json-server --watch db.json
+
 */

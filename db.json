@@ -1,0 +1,10 @@
+{
+    "data": [
+        { "firstName": "Lachezar" },
+        { "lastName": "Yordanov" },
+        { "role": "Admin" },
+        { "checkbox": "true" },
+        { "radio": "Admin" },
+        { "email": "lachyordanov@gmail.com" }
+    ]
+}
