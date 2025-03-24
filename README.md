@@ -1,27 +1,179 @@
 # DynamicFormFromJson
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.5.
+## Overview
 
-## Development server
+DynamicFormFromJson is an Angular application that transforms JSON configurations into fully functional forms. It enables developers to rapidly create complex, validated forms without writing HTML templates, supporting both individual fields and grouped inputs. The application generates a structured JSON output upon submission and includes a mock server for data autofill capabilities.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Features
 
-## Code scaffolding
+- **Dynamic Form Generation**: Converts a JSON object into a fully functional form.
+- **Supported Field Types**:
+  - Text
+  - Textarea
+  - Dropdown
+  - Checkbox
+  - Radio
+  - Text with validations
+- **Validation Rules**:
+  - Required
+  - Email format
+  - Minlength
+  - Maxlength
+  - Pattern matching
+- **Field Dependencies**:
+  - Supports "AND" and "OR" dependency rules.
+  - Dependencies can enforce conditions like `minlength`, `maxlength`, `email`, `pattern`, or an exact value match.
+- **Mock JSON Server**:
+  - Used for autofilling fields based on predefined data.
+  - Started with: `json-server --watch db.json`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Example JSON Form Configuration
 
-## Build
+```json
+{
+  "fields": [
+    { "type": "text", "label": "First Name", "name": "firstName", "value": "" },
+    { "type": "text", "label": "Last Name", "name": "lastName", "value": "" },
+    { "type": "dropdown", "label": "Role", "name": "role", "options": ["User", "Admin"], "value": "" },
+    { "type": "checkbox", "label": "Checkbox Test", "name": "checkbox", "value": "" },
+    { "type": "radio", "label": "Radio Test", "name": "radio", "options": ["User", "Admin"], "value": "" },
+    { 
+      "type": "custom", 
+      "label": "Email", 
+      "name": "email", 
+      "value": "", 
+      "validations": [
+        { "type": "required", "message": "Can't be empty" }, 
+        { "type": "email", "message": "Must be a valid email" }, 
+        { "type": "minlength", "value": "10", "message": "Must be at least 10 characters" }
+      ] 
+    },
+    { 
+      "type": "custom", 
+      "label": "Admin Code", 
+      "name": "adminCode", 
+      "value": "",
+      "dependencies": [
+        { 
+          "type": "AND", 
+          "dependencies": [
+            { "field": "role", "value": "Admin" },
+            { "field": "email", "type": "email" }
+          ]
+        }
+      ]
+    },
+    { 
+      "type": "dropdown", 
+      "label": "Account Type", 
+      "name": "accountType", 
+      "options": ["Personal", "Business"], 
+      "value": "" 
+    },
+    { "type": "checkbox", "label": "Newsletter", "name": "newsletter", "value": "" },
+    { 
+      "type": "text", 
+      "label": "Company Name", 
+      "name": "companyName", 
+      "value": "",
+      "dependencies": [
+        { 
+          "type": "OR", 
+          "dependencies": [
+            { "field": "accountType", "value": "Business" },
+            { "field": "newsletter", "value": "true" }
+          ]
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Form Group",
+      "dependencies": [
+        {
+          "type": "AND",
+          "dependencies": [
+            { "field": "userId", "value": "TEST" }
+          ]
+        }
+      ],
+      "fields": [
+        { "type": "checkbox", "label": "Checkbox in group 1", "name": "checkbox1", "value": "" },
+        { "type": "checkbox", "label": "Checkbox in group 2", "name": "checkbox2", "value": "" },
+        { "type": "checkbox", "label": "Checkbox in group 3", "name": "checkbox3", "value": "" }
+      ]
+    },
+    {
+      "title": "Admin Settings",
+      "dependencies": [
+        { 
+          "type": "AND", 
+          "dependencies": [
+            { "field": "checkbox3", "value": "true" }
+          ]
+        }
+      ],
+      "fields": [
+        { "type": "text", "label": "Admin Level", "name": "adminLevel", "value": "" },
+        { 
+          "type": "text", 
+          "label": "Admin Notes", 
+          "name": "adminNotes", 
+          "value": "",
+          "dependencies": [
+            { 
+              "type": "AND", 
+              "dependencies": [
+                { "field": "adminLevel", "value": "SuperAdmin" }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Mock Server Integration
 
-## Running unit tests
+The application includes a JSON server to simulate backend data:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- Automatically fills form fields when data with matching field names is found
+- Perfect for prototyping or testing forms with realistic data
+- Start with: `json-server --watch db.json`
 
-## Running end-to-end tests
+## Getting Started
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+1. **Clone the repository**:
+   ```sh
+   git clone https://github.com/yourusername/DynamicFormFromJson.git
+   cd DynamicFormFromJson
+   ```
 
-## Further help
+2. **Install dependencies**:
+   ```sh
+   npm install
+   ```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+3. **Start the mock server**:
+   ```sh
+   json-server --watch db.json
+   ```
+
+4. **Run the application**:
+   ```sh
+   ng serve
+   ```
+
+5. **Access the application**:
+   Navigate to `http://localhost:4200/`
+
+## Use Cases
+
+- Rapid prototyping of complex forms
+- Configuration-driven form generation
+- Dynamic surveys and questionnaires
+- Forms with complex conditional logic
+- Data collection with comprehensive validation
