@@ -32,59 +32,168 @@
 ```json
 {
   "fields": [
-    { "type": "text", "label": "First Name", "name": "firstName", "value": "" },
-    { "type": "text", "label": "Last Name", "name": "lastName", "value": "" },
-    { "type": "dropdown", "label": "Role", "name": "role", "options": ["User", "Admin"], "value": "" },
-    { "type": "checkbox", "label": "Checkbox Test", "name": "checkbox", "value": "" },
-    { "type": "radio", "label": "Radio Test", "name": "radio", "options": ["User", "Admin"], "value": "" },
-    { 
-      "type": "custom", 
-      "label": "Email", 
-      "name": "email", 
-      "value": "", 
+    {
+      "type": "text",
+      "label": "First Name",
+      "name": "firstName",
+      "value": ""
+    },
+    {
+      "type": "text",
+      "label": "Last Name",
+      "name": "lastName",
+      "value": ""
+    },
+    {
+      "type": "dropdown",
+      "label": "Role",
+      "name": "role",
+      "options": ["User", "Admin"],
+      "value": ""
+    },
+    {
+      "type": "checkbox",
+      "label": "Checkbox Test",
+      "name": "checkbox",
+      "value": ""
+    },
+    {
+      "type": "radio",
+      "label": "Radio Test",
+      "name": "radio",
+      "options": ["User", "Admin"],
+      "value": ""
+    },
+    {
+      "type": "custom",
+      "label": "Email",
+      "name": "email",
+      "value": "",
       "validations": [
-        { "type": "required", "message": "Can't be empty" }, 
-        { "type": "email", "message": "Must be a valid email" }, 
-        { "type": "minlength", "value": "10", "message": "Must be at least 10 characters" }
-      ] 
+        {
+          "type": "required",
+          "message": "Can't be empty"
+        },
+        {
+          "type": "email",
+          "message": "Must be a valid email"
+        },
+        {
+          "type": "minlength",
+          "value": "10",
+          "message": "Must be at least 10 symbols"
+        }
+      ]
     },
-    { 
-      "type": "custom", 
-      "label": "Admin Code", 
-      "name": "adminCode", 
+    {
+      "type": "custom",
+      "label": "Admin Code",
+      "name": "adminCode",
       "value": "",
       "dependencies": [
-        { 
-          "type": "AND", 
+        {
+          "type": "AND",
           "dependencies": [
-            { "field": "role", "value": "Admin" },
-            { "field": "email", "type": "email" }
+            {
+              "field": "role",
+              "value": "Admin"
+            },
+            {
+              "field": "email",
+              "type": "email"
+            }
           ]
         }
       ]
     },
-    { 
-      "type": "dropdown", 
-      "label": "Account Type", 
-      "name": "accountType", 
-      "options": ["Personal", "Business"], 
-      "value": "" 
+    {
+      "type": "dropdown",
+      "label": "Account Type",
+      "name": "accountType",
+      "options": ["Personal", "Business"],
+      "value": ""
     },
-    { "type": "checkbox", "label": "Newsletter", "name": "newsletter", "value": "" },
-    { 
-      "type": "text", 
-      "label": "Company Name", 
-      "name": "companyName", 
+    {
+      "type": "checkbox",
+      "label": "Newsletter",
+      "name": "newsletter",
+      "value": ""
+    },
+    {
+      "type": "text",
+      "label": "Company Name",
+      "name": "companyName",
       "value": "",
       "dependencies": [
-        { 
-          "type": "OR", 
+        {
+          "type": "OR",
           "dependencies": [
-            { "field": "accountType", "value": "Business" },
-            { "field": "newsletter", "value": "true" }
+            {
+              "field": "accountType",
+              "value": "Business"
+            },
+            {
+              "field": "newsletter",
+              "value": "true"
+            }
           ]
         }
       ]
+    },
+    {
+      "type": "dropdown",
+      "label": "Membership Level",
+      "name": "membership",
+      "options": ["Basic", "Premium", "VIP"],
+      "value": ""
+    },
+    {
+      "type": "checkbox",
+      "label": "Enable Discount",
+      "name": "enableDiscount",
+      "value": ""
+    },
+    {
+      "type": "checkbox",
+      "label": "Loyalty Program",
+      "name": "loyaltyProgram",
+      "value": ""
+    },
+    {
+      "type": "text",
+      "label": "Discount Code",
+      "name": "discountCode",
+      "value": "",
+      "dependencies": [
+        {
+          "type": "AND",
+          "dependencies": [
+            {
+              "field": "enableDiscount",
+              "value": "true"
+            },
+            {
+              "type": "OR",
+              "dependencies": [
+                {
+                  "field": "membership",
+                  "value": "Premium"
+                },
+                {
+                  "field": "loyaltyProgram",
+                  "value": "true"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "label": "User ID",
+      "name": "userId",
+      "value": ""
     }
   ],
   "groups": [
@@ -94,38 +203,67 @@
         {
           "type": "AND",
           "dependencies": [
-            { "field": "userId", "value": "TEST" }
+            {
+              "field": "userId",
+              "value": "TEST"
+            }
           ]
         }
       ],
       "fields": [
-        { "type": "checkbox", "label": "Checkbox in group 1", "name": "checkbox1", "value": "" },
-        { "type": "checkbox", "label": "Checkbox in group 2", "name": "checkbox2", "value": "" },
-        { "type": "checkbox", "label": "Checkbox in group 3", "name": "checkbox3", "value": "" }
+        {
+          "type": "checkbox",
+          "label": "Checkbox in group 1",
+          "name": "checkbox1",
+          "value": ""
+        },
+        {
+          "type": "checkbox",
+          "label": "Checkbox in group 2",
+          "name": "checkbox2",
+          "value": ""
+        },
+        {
+          "type": "checkbox",
+          "label": "Checkbox in group 3",
+          "name": "checkbox3",
+          "value": ""
+        }
       ]
     },
     {
       "title": "Admin Settings",
       "dependencies": [
-        { 
-          "type": "AND", 
+        {
+          "type": "AND",
           "dependencies": [
-            { "field": "checkbox3", "value": "true" }
+            {
+              "field": "checkbox3",
+              "value": "true"
+            }
           ]
         }
       ],
       "fields": [
-        { "type": "text", "label": "Admin Level", "name": "adminLevel", "value": "" },
-        { 
-          "type": "text", 
-          "label": "Admin Notes", 
-          "name": "adminNotes", 
+        {
+          "type": "text",
+          "label": "Admin Level",
+          "name": "adminLevel",
+          "value": ""
+        },
+        {
+          "type": "text",
+          "label": "Admin Notes",
+          "name": "adminNotes",
           "value": "",
           "dependencies": [
-            { 
-              "type": "AND", 
+            {
+              "type": "AND",
               "dependencies": [
-                { "field": "adminLevel", "value": "SuperAdmin" }
+                {
+                  "field": "adminLevel",
+                  "value": "SuperAdmin"
+                }
               ]
             }
           ]
