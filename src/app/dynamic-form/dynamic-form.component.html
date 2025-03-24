@@ -1,4 +1,20 @@
-<form [formGroup]="dynamicForm" class="dynamic-form" (submit)="submitForm($event)">
+<button mat-fab extended aria-label="Hide JSON form" class="hide-json-form" (click)="changeJsonFormVisibility()">
+    <mat-icon>
+        @if (jsonFormVisible) {
+            arrow_back
+        }
+        @else {
+            arrow_forward
+        }
+    </mat-icon>
+    @if (jsonFormVisible) {
+        Hide JSON form
+    }
+    @else {
+        Show JSON form
+    }
+</button>
+<form [formGroup]="dynamicForm" class="dynamic-form" (submit)="submitForm($event)" [ngClass]="{'fullWidth': !jsonFormVisible}">
     <h2>Generated Form:</h2>
     @for (field of jsonForm()?.fields || []; track field) {
         <app-dynamic-field [field]="field" [control]="getControl(field.name)" [parentForm]="dynamicForm"></app-dynamic-field>

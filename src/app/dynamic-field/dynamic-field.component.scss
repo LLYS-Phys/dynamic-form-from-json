@@ -3,6 +3,7 @@
     margin: 0.25rem 0 0.25rem;
     &:has(.input.hidden) {
         height: 0;
+        margin: 0;
     }
     .input {
         opacity: 1;

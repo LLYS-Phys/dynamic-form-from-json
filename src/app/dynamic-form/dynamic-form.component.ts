@@ -1,4 +1,4 @@
-import { Component, input, OnChanges, OnInit } from '@angular/core';
+import { Component, DestroyRef, input, OnChanges, OnInit } from '@angular/core';
 import { FormConfig } from '../models/form.model';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -7,32 +7,46 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormService } from '../services/form.service';
 import { CommonModule } from '@angular/common';
 import { DependencyService } from '../services/dependency.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dynamic-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatButtonModule, DynamicFieldComponent, CommonModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatButtonModule, DynamicFieldComponent, CommonModule, MatIconModule],
   templateUrl: './dynamic-form.component.html',
   styleUrl: './dynamic-form.component.scss'
 })
 export class DynamicFormComponent implements OnInit, OnChanges {
-  constructor(private formService: FormService, private dependencyService: DependencyService) {}
+  constructor(private formService: FormService, private dependencyService: DependencyService, private destroyRef: DestroyRef) {}
 
+  jsonFormVisible = true
   jsonForm = input<FormConfig>()
   dynamicForm = new FormGroup({})
 
   ngOnInit() {
+    console.log('init')
     this.formService.generateForm(this.dynamicForm, this.jsonForm()?.fields, this.jsonForm()?.groups)
     this.evaluateGroupDependencies()
-    this.dynamicForm.valueChanges.subscribe(() => {
-      this.evaluateGroupDependencies()
-    })
+    this.formsSubscription()
   }
 
   ngOnChanges() {
-    this.dynamicForm = new FormGroup({})
-    this.formService.generateForm(this.dynamicForm, this.jsonForm()?.fields, this.jsonForm()?.groups)
+    if (this.dynamicForm) {
+      Object.keys(this.dynamicForm.controls).forEach(key => {
+        this.dynamicForm.removeControl(key);
+      });
+    }
+    this.dynamicForm = new FormGroup({});
     this.evaluateGroupDependencies()
+    this.formsSubscription()
+  }
+
+  formsSubscription() {
+    this.formService.generateForm(this.dynamicForm, this.jsonForm()?.fields, this.jsonForm()?.groups);
+    const formSubscription = this.dynamicForm.valueChanges.subscribe(() => {
+      this.evaluateGroupDependencies()
+    })
+    this.destroyRef.onDestroy(() => formSubscription.unsubscribe())
   }
 
   getControl(name: string): FormControl {
@@ -41,6 +55,10 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   isGroupVisible(group: any): boolean {
     return !group.isHidden;
+  }
+
+  changeJsonFormVisibility() {
+    this.jsonFormVisible = !this.jsonFormVisible
   }
 
   evaluateGroupDependencies() {

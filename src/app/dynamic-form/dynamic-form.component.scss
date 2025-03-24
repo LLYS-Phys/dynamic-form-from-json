@@ -4,6 +4,19 @@
     padding: 2rem 2rem 2rem 1.5rem;
     width: calc(50% - 3.5rem);
     border-left: 1px solid black;
+    position: relative;
+    transition: all 0.33s;
+    &:has(.dynamic-form.fullWidth) {
+        width: calc(100% - 3.5rem);
+        border-left: none;
+        padding: 2rem;
+    }
+    .hide-json-form {
+        position: absolute;
+        left: 0.25rem;
+        top: 0.25rem;
+        height: 2rem;
+    }
     h2 {
         font-size: 2rem;
         border-bottom: 1px solid black;
@@ -21,7 +34,7 @@
             transition: all 0.2s 0.1s;
             display: flex;
             flex-direction: column;
-            width: 100%;
+            width: calc(100% - 2rem);
             background-color: rgba(173, 216, 230, 0.5);
             margin-bottom: 0.5rem;
             padding: 1rem;
@@ -53,5 +66,8 @@
         width: calc(100% - 4rem);
         padding: 2rem;
         border-left: none;
+        .hide-json-form {
+            display: none;
+        }
     }
 }
