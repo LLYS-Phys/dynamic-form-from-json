@@ -7,17 +7,19 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormService } from '../services/form.service';
 import { CommonModule } from '@angular/common';
 import { DependencyService } from '../services/dependency.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-dynamic-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatButtonModule, DynamicFieldComponent, CommonModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatButtonModule, DynamicFieldComponent, CommonModule, MatIconModule],
   templateUrl: './dynamic-form.component.html',
   styleUrl: './dynamic-form.component.scss'
 })
 export class DynamicFormComponent implements OnInit, OnChanges {
   constructor(private formService: FormService, private dependencyService: DependencyService) {}
 
+  jsonFormVisible = true
   jsonForm = input<FormConfig>()
   dynamicForm = new FormGroup({})
 
@@ -41,6 +43,10 @@ export class DynamicFormComponent implements OnInit, OnChanges {
 
   isGroupVisible(group: any): boolean {
     return !group.isHidden;
+  }
+
+  changeJsonFormVisibility() {
+    this.jsonFormVisible = !this.jsonFormVisible
   }
 
   evaluateGroupDependencies() {
