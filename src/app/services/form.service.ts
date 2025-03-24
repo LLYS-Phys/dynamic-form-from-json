@@ -74,8 +74,24 @@ export class FormService {
     private checkGroupDependency(dependency: any, form: FormGroup): boolean {
         const dependentControl = form.get(dependency.field);
         if (!dependentControl) return false;
-        if (!dependency.type) return dependentControl.value === dependency.value;
-        return true // to add logic about types here
+        if (!dependency.type) {
+            return dependentControl.value === dependency.value;
+        }
+        else {
+            switch (dependency.type) {
+                case 'minlength':
+                    return dependentControl.value.length >= dependency.value
+                case 'maxlength':
+                    return dependentControl.value.length <= dependency.value
+                case 'email':
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return emailPattern.test(dependentControl.value)
+                case 'pattern':
+                    return dependency.value.test(dependentControl.value)
+                default:
+                    return false
+            }
+        }
     }
 
     private checkFieldDependency(dependency: any, form: FormGroup): boolean {
@@ -84,8 +100,24 @@ export class FormService {
         const dependentControl = form!.get(dependency.field);
         if (!dependentControl) return false;
         
-        if (!dependency.type) return dependentControl.value === dependency.value;
-        return true // to add logic about types here
+        if (!dependency.type) {
+            return dependentControl.value === dependency.value;
+        }
+        else {
+            switch (dependency.type) {
+                case 'minlength':
+                    return dependentControl.value.length >= dependency.value
+                case 'maxlength':
+                    return dependentControl.value.length <= dependency.value
+                case 'email':
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    return emailPattern.test(dependentControl.value)
+                case 'pattern':
+                    return dependency.value.test(dependentControl.value)
+                default:
+                    return false
+            }
+        }
       }
 
     private generateField(field: FieldConfig, form: FormGroup) {

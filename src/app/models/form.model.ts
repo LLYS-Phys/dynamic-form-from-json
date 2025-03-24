@@ -28,7 +28,7 @@ export interface Validation {
 
 interface Dependency {
     field: string; 
-    value: string;
+    value?: string;
     type?: 'minlength' | 'maxlength' | 'email' | 'pattern'
 }
 

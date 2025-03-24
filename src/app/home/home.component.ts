@@ -74,7 +74,8 @@ Test JSON:
         { 
           "type": "AND", 
           "dependencies": [
-            { "field": "role", "value": "Admin" }
+            { "field": "role", "value": "Admin" },
+             { "field": "email", "type": "email" }
           ]
         }
       ]
