@@ -84,7 +84,7 @@ export class DependencyService {
         
         if (!dependency.type) {
             if (dependentControl.value == null) return false
-            if (dependency.caseSensitive == true) {
+            if (dependency.caseSensitive == "true") {
               return dependentControl.value.toString() == dependency.value
             }
             return dependentControl.value.toString().toLowerCase() == dependency.value.toLowerCase()

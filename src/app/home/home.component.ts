@@ -173,7 +173,7 @@ Test JSON:
             { 
               "type": "AND", 
               "dependencies": [
-                { "field": "adminLevel", "value": "SuperAdmin" }
+                { "field": "adminLevel", "value": "SuperAdmin", "caseSensitive": "true" }
               ]
             }
           ]
