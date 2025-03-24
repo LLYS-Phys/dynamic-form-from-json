@@ -1,0 +1,16 @@
+<form [formGroup]="dynamicForm" class="dynamic-form" (submit)="submitForm($event)">
+    @for (field of jsonForm()?.fields || []; track field) {
+        <app-dynamic-field [field]="field" [control]="getControl(field.name)" [parentForm]="dynamicForm"></app-dynamic-field>
+    }
+    
+    @for (group of jsonForm()?.groups || []; track group) {
+        <section class="group" [ngClass]="{'hidden': !isGroupVisible(group)}">
+            <mat-label>{{ group.title }}</mat-label>
+            @for (field of group.fields; track field) {
+                <app-dynamic-field [field]="field" [control]="getControl(field.name)" [parentForm]="dynamicForm"></app-dynamic-field>
+            }
+        </section>
+    }
+
+    <button mat-stroked-button type="submit" [disabled]="!dynamicForm.valid">Submit</button>
+</form>
