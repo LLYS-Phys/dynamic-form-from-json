@@ -1,4 +1,5 @@
 <form [formGroup]="dynamicForm" class="dynamic-form" (submit)="submitForm($event)">
+    <h2>Generated Form:</h2>
     @for (field of jsonForm()?.fields || []; track field) {
         <app-dynamic-field [field]="field" [control]="getControl(field.name)" [parentForm]="dynamicForm"></app-dynamic-field>
     }

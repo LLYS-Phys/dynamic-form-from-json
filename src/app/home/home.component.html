@@ -1,7 +1,8 @@
 <form class="json-form" (submit)="submitJSON($event)" [formGroup]="jsonForm">
+    <h2>Generate a form:</h2>
     <mat-form-field class="json-form-input">
       <mat-label>JSON form</mat-label>
-      <textarea matInput placeholder="Please insert your JSON form here..." rows="10" formControlName="json" (input)="valueChanged()"></textarea>
+      <textarea matInput placeholder="Please insert your JSON form here..." rows="30" formControlName="json" (input)="valueChanged()"></textarea>
       @if (this.jsonForm.controls.json.invalid && this.jsonForm.controls.json.touched) {
         <mat-error>Please enter a JSON to be transformed into a form!</mat-error>
       }
@@ -11,8 +12,7 @@
     }
 
     <button mat-stroked-button [disabled]="jsonForm.controls.json.value == ''">Generate form</button>
-
-    @if (generatedFormJson) {
-        <app-dynamic-form [jsonForm]="generatedFormJson"></app-dynamic-form>
-    }
 </form>
+@if (generatedFormJson) {
+  <app-dynamic-form [jsonForm]="generatedFormJson"></app-dynamic-form>
+}

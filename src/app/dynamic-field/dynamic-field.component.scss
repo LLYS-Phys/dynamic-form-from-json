@@ -1,14 +1,25 @@
 :host {
+    width: 100%;
+    margin: 0.25rem 0 0.25rem;
     &:has(.input.hidden) {
         height: 0;
     }
     .input {
         opacity: 1;
         height: 100%;
-        transition: all 0.2s 0.1s;
+        transition: all 0.2s;
+        width: 100%;
         &.hidden {
             opacity: 0;
             height: 0;
+            margin: 0;
+        }
+    }
+    mat-radio-group {
+        display: flex;
+        flex-direction: column;
+        mat-label {
+            padding: 0.5rem;
         }
     }
 }

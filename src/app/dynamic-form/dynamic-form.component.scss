@@ -1,18 +1,57 @@
 :host {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 2rem 2rem 1.5rem;
+    width: calc(50% - 3.5rem);
+    border-left: 1px solid black;
+    h2 {
+        font-size: 2rem;
+        border-bottom: 1px solid black;
+        width: 100%;
+        text-align: center;
+    }
     .dynamic-form {
         display: flex;
         flex-direction: column;
-    }
-    &:has(.group.hidden) {
-        height: 0;
-    }
-    .group {
-        opacity: 1;
-        height: 100%;
-        transition: all 0.2s 0.1s;
-        &.hidden {
-            opacity: 0;
-            height: 0;
+        align-items: center;
+        min-width: 100%;
+        .group {
+            opacity: 1;
+            height: auto;
+            transition: all 0.2s 0.1s;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            background-color: rgba(173, 216, 230, 0.5);
+            margin-bottom: 0.5rem;
+            padding: 1rem;
+            border-radius: 1rem;
+            transition: all 0.2s;
+            mat-label {
+                padding: 0.5rem 0.5rem 1rem;
+                font-size: 1.25rem;
+            }
+            app-dynamic-field {
+                margin: 0;
+            }
+            &.hidden {
+                opacity: 0;
+                height: 0;
+                margin: 0;
+                padding: 0;
+                * {
+                    height: 0;
+                }
+            }
         }
+        button {
+            width: fit-content;
+            padding: 1rem 2rem;
+        }
+    }
+    @media screen and (max-width: 1023px) {
+        width: calc(100% - 4rem);
+        padding: 2rem;
+        border-left: none;
     }
 }
