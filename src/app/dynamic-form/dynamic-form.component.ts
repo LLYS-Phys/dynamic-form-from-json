@@ -6,6 +6,7 @@ import { DynamicFieldComponent } from "../dynamic-field/dynamic-field.component"
 import { MatButtonModule } from '@angular/material/button';
 import { FormService } from '../services/form.service';
 import { CommonModule } from '@angular/common';
+import { DependencyService } from '../services/dependency.service';
 
 @Component({
   selector: 'app-dynamic-form',
@@ -15,7 +16,7 @@ import { CommonModule } from '@angular/common';
   styleUrl: './dynamic-form.component.scss'
 })
 export class DynamicFormComponent implements OnInit, OnChanges {
-  constructor(private formService: FormService) {}
+  constructor(private formService: FormService, private dependencyService: DependencyService) {}
 
   jsonForm = input<FormConfig>()
   dynamicForm = new FormGroup({})
@@ -53,7 +54,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         return;
       }
       
-      group.isHidden = this.formService.groupDependencies(group, this.dynamicForm)
+      group.isHidden = this.dependencyService.groupDependencies(group, this.dynamicForm)
     });
   }
 

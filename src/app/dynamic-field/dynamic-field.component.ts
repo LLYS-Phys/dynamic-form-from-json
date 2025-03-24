@@ -8,6 +8,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { CommonModule } from '@angular/common';
 import { FormService } from '../services/form.service';
+import { DependencyService } from '../services/dependency.service';
 
 @Component({
   selector: 'app-dynamic-field',
@@ -17,7 +18,7 @@ import { FormService } from '../services/form.service';
   styleUrl: './dynamic-field.component.scss'
 })
 export class DynamicFieldComponent {
-  constructor(private formService: FormService) {}
+  constructor(private formService: FormService, private dependencyService: DependencyService) {}
 
   field = input.required<FieldConfig>();
   control = input.required<FormControl>();
@@ -57,6 +58,6 @@ export class DynamicFieldComponent {
       return;
     }
 
-    this.isHidden = this.formService.fieldDependencies(fieldConfig, this.parentForm()!)
+    this.isHidden = this.dependencyService.fieldDependencies(fieldConfig, this.parentForm()!)
   }
 }
