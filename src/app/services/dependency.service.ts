@@ -53,7 +53,8 @@ export class DependencyService {
         const dependentControl = form.get(dependency.field);
         if (!dependentControl) return false;
         if (!dependency.type) {
-            return dependentControl.value === dependency.value;
+            if (dependentControl.value == null) return false
+            return dependentControl.value.toString() == dependency.value
         }
         else {
             switch (dependency.type) {
@@ -79,7 +80,8 @@ export class DependencyService {
         if (!dependentControl) return false;
         
         if (!dependency.type) {
-            return dependentControl.value === dependency.value;
+            if (dependentControl.value == null) return false
+            return dependentControl.value.toString() == dependency.value
         }
         else {
             switch (dependency.type) {

@@ -158,7 +158,7 @@ Test JSON:
         { 
           "type": "AND", 
           "dependencies": [
-            { "field": "adminLevel", "value": "SuperAdmin" }
+            { "field": "checkbox3", "value": "true" }
           ]
         }
       ],
