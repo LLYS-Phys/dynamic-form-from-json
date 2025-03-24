@@ -29,6 +29,7 @@ export interface Validation {
 interface Dependency {
     field: string; 
     value?: string;
+    caseSensitive?: 'true' | 'false';
     type?: 'minlength' | 'maxlength' | 'email' | 'pattern'
 }
 

@@ -6,14 +6,15 @@
     border-left: 1px solid black;
     position: relative;
     transition: all 0.33s;
-    &:has(form.fullWidth) {
+    &:has(.dynamic-form.fullWidth) {
         width: calc(100% - 3.5rem);
         border-left: none;
+        padding: 2rem;
     }
     .hide-json-form {
         position: absolute;
-        left: 0;
-        top: 0;
+        left: 0.25rem;
+        top: 0.25rem;
         height: 2rem;
     }
     h2 {
@@ -33,7 +34,7 @@
             transition: all 0.2s 0.1s;
             display: flex;
             flex-direction: column;
-            width: 100%;
+            width: calc(100% - 2rem);
             background-color: rgba(173, 216, 230, 0.5);
             margin-bottom: 0.5rem;
             padding: 1rem;

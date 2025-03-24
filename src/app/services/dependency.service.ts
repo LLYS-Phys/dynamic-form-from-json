@@ -54,7 +54,10 @@ export class DependencyService {
         if (!dependentControl) return false;
         if (!dependency.type) {
             if (dependentControl.value == null) return false
-            return dependentControl.value.toString() == dependency.value
+            if (dependency.caseSensitive == "true") {
+              return dependentControl.value.toString() == dependency.value
+            }
+            return dependentControl.value.toString().toLowerCase() == dependency.value.toLowerCase()
         }
         else {
             switch (dependency.type) {
@@ -81,7 +84,10 @@ export class DependencyService {
         
         if (!dependency.type) {
             if (dependentControl.value == null) return false
-            return dependentControl.value.toString() == dependency.value
+            if (dependency.caseSensitive == true) {
+              return dependentControl.value.toString() == dependency.value
+            }
+            return dependentControl.value.toString().toLowerCase() == dependency.value.toLowerCase()
         }
         else {
             switch (dependency.type) {
