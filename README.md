@@ -1,8 +1,8 @@
-# DynamicFormFromJson
+# Dynamic Form From JSON
 
 ## Overview
 
-DynamicFormFromJson is an Angular application that transforms JSON configurations into fully functional forms. It enables developers to rapidly create complex, validated forms without writing HTML templates, supporting both individual fields and grouped inputs. The application generates a structured JSON output upon submission and includes a mock server for data autofill capabilities.
+"Dynamic Form From JSON" is an Angular application that transforms JSON configurations into fully functional forms. It enables developers to rapidly create complex, validated forms without writing HTML templates, supporting both individual fields and grouped inputs. The application generates a structured JSON output upon submission and includes a mock server for data autofill capabilities.
 
 ## Features
 
@@ -144,12 +144,36 @@ The application includes a JSON server to simulate backend data:
 - Perfect for prototyping or testing forms with realistic data
 - Start with: `json-server --watch db.json`
 
+### Customizing Mock Data
+
+You can easily modify the autofill data by editing the `db.json` file in the root directory. The current default setup contains:
+
+```json
+{
+    "data": [
+        { "firstName": "Lachezar" },
+        { "lastName": "Yordanov" },
+        { "role": "Admin" },
+        { "checkbox": "true" },
+        { "radio": "Admin" },
+        { "email": "lachyordanov@gmail.com" }
+    ]
+}
+```
+
+To add or modify autofill data:
+1. Open the `db.json` file in any text editor
+2. Add or change field values in the "data" array
+3. Restart the JSON server to apply changes
+
+The application will automatically use these values to prefill matching form fields when loaded.
+
 ## Getting Started
 
 1. **Clone the repository**:
    ```sh
-   git clone https://github.com/yourusername/DynamicFormFromJson.git
-   cd DynamicFormFromJson
+   git clone https://github.com/LLYS-Phys/dynamic-form-from-json.git
+   cd dynamic-form-from-json
    ```
 
 2. **Install dependencies**:
