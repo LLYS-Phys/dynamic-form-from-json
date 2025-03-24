@@ -154,6 +154,14 @@ Test JSON:
     },
     {
       "title": "Admin Settings",
+      "dependencies": [
+        { 
+          "type": "AND", 
+          "dependencies": [
+            { "field": "adminLevel", "value": "SuperAdmin" }
+          ]
+        }
+      ],
       "fields": [
         { "type": "text", "label": "Admin Level", "name": "adminLevel", "value": "" },
         { 
