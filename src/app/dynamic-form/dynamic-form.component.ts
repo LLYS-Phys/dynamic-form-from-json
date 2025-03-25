@@ -35,6 +35,7 @@ export class DynamicFormComponent implements OnInit, OnChanges {
   jsonForm = input<FormConfig>()
   dynamicForm = new FormGroup({})
   fetchedData: any | null = null
+  jsonServerDown = false
 
   @HostListener('window:beforeunload', ['$event'])
   onBeforeUnload(event: Event) {
@@ -62,6 +63,9 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     this.http.get('http://localhost:3000/data').subscribe({
       next: (data) => {
         this.fetchedData = data
+      },
+      error: () => {
+        this.jsonServerDown = true
       }
     })
     if (localStorage.getItem('autosave') == 'true') {
