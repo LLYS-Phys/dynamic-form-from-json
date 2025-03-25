@@ -33,7 +33,7 @@ interface Dependency {
     type?: 'minlength' | 'maxlength' | 'email' | 'pattern' | 'has'
 }
 
-interface DependenciesGroup {
+export interface DependenciesGroup {
     type: 'AND' | 'OR'
     dependencies: Dependency[]
 }
