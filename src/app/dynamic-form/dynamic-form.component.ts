@@ -1,4 +1,4 @@
-import { Component, DestroyRef, input, OnChanges, OnInit } from '@angular/core';
+import { Component, DestroyRef, HostListener, input, OnChanges, OnInit } from '@angular/core';
 import { FormConfig } from '../models/form.model';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,11 +10,12 @@ import { DependencyService } from '../services/dependency.service';
 import { MatIconModule } from '@angular/material/icon';
 import { ApiService } from '../services/api.service';
 import { HttpClient } from '@angular/common/http';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-dynamic-form',
   standalone: true,
-  imports: [ReactiveFormsModule, MatFormFieldModule, MatButtonModule, DynamicFieldComponent, CommonModule, MatIconModule],
+  imports: [ReactiveFormsModule, MatFormFieldModule, MatButtonModule, DynamicFieldComponent, CommonModule, MatIconModule, MatCheckboxModule],
   templateUrl: './dynamic-form.component.html',
   styleUrl: './dynamic-form.component.scss'
 })
@@ -27,10 +28,32 @@ export class DynamicFormComponent implements OnInit, OnChanges {
     private http: HttpClient
   ) {}
 
+  autoSaveForm = new FormGroup({
+    autosave: new FormControl(false)
+  })
   jsonFormVisible = true
   jsonForm = input<FormConfig>()
   dynamicForm = new FormGroup({})
   fetchedData: any | null = null
+
+  @HostListener('window:beforeunload', ['$event'])
+  onBeforeUnload(event: Event) {
+    if (localStorage.getItem('autosave') == 'true') {
+      localStorage.setItem('initialForm', JSON.stringify(this.jsonForm()))
+      this.formService.fillAllFields(this.dynamicForm, this.jsonForm()?.fields, this.jsonForm()?.groups)
+      localStorage.setItem('filledForm', JSON.stringify(this.jsonForm()))
+    }
+    else {
+      localStorage.removeItem('autosave')
+      localStorage.removeItem('initialForm')
+      localStorage.removeItem('filledForm')
+    }
+  }
+
+  updateAutosave() {
+    this.autoSaveForm.controls.autosave.updateValueAndValidity()
+    localStorage.setItem('autosave', this.autoSaveForm.controls.autosave.value!.toString())
+  }
 
   ngOnInit() {
     this.formService.generateForm(this.dynamicForm, this.jsonForm()?.fields, this.jsonForm()?.groups)
@@ -41,6 +64,10 @@ export class DynamicFormComponent implements OnInit, OnChanges {
         this.fetchedData = data
       }
     })
+    if (localStorage.getItem('autosave') == 'true') {
+      this.autoSaveForm.controls.autosave.setValue(true)
+      this.apiService.autoFillFromLocalStorage(this.dynamicForm, JSON.parse(localStorage.getItem("filledForm")!))
+    }
   }
 
   ngOnChanges() {

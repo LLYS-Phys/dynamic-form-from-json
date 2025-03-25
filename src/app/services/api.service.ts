@@ -19,4 +19,16 @@ export class ApiService {
             });
         });
     }
+
+    autoFillFromLocalStorage(form: FormGroup, data: any) {
+        Object.keys(form.controls).forEach((key: string) => {
+            const control = form.get(key) as AbstractControl;
+            data.fields.forEach((field: any) => {
+                const predefinedValue = field.value;
+                if (field.name == key) {
+                    control.setValue(predefinedValue)
+                }
+            });
+        });
+    }
 }

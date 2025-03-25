@@ -1,22 +1,29 @@
-<button mat-fab extended aria-label="Hide JSON form" class="hide-json-form" (click)="changeJsonFormVisibility()">
-    <mat-icon>
+<section class="buttons-container">
+    <button mat-fab extended aria-label="Hide JSON form" class="hide-json-form" (click)="changeJsonFormVisibility()">
+        <mat-icon>
+            @if (jsonFormVisible) {
+                arrow_back
+            }
+            @else {
+                arrow_forward
+            }
+        </mat-icon>
         @if (jsonFormVisible) {
-            arrow_back
+            Hide JSON form
         }
         @else {
-            arrow_forward
+            Show JSON form
         }
-    </mat-icon>
-    @if (jsonFormVisible) {
-        Hide JSON form
-    }
-    @else {
-        Show JSON form
-    }
-</button>
-<button mat-fab extended aria-label="Autofill form" class="autofill-form" (click)="autoFillForm()">
-    Autofill form
-</button>
+    </button>
+    <button mat-fab extended aria-label="Autofill form" class="autofill-form" (click)="autoFillForm()">
+        Autofill form
+    </button>
+    <form [formGroup]="autoSaveForm" class="autosave-form">
+        <mat-checkbox formControlName="autosave" (click)="updateAutosave()">
+            Autosave
+        </mat-checkbox>
+    </form>
+</section>
 <form [formGroup]="dynamicForm" class="dynamic-form" (submit)="submitForm($event)" [ngClass]="{'fullWidth': !jsonFormVisible}">
     <h2>Generated Form:</h2>
     @for (field of jsonForm()?.fields || []; track field) {

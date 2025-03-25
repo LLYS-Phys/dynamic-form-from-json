@@ -23,6 +23,12 @@
         top: 0.25rem;
         height: 2rem;
     }
+    .autosave-form {
+        position: absolute;
+        right: 1rem;
+        top: 2.5rem;
+
+    }
     h2 {
         font-size: 2rem;
         border-bottom: 1px solid black;
@@ -72,8 +78,18 @@
         width: calc(100% - 4rem);
         padding: 2rem;
         border-left: none;
+        display: flex;
+        flex-direction: column;
         .hide-json-form {
             display: none;
+        }
+        .autofill-form {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+        .autosave-form {
+            top: 2rem;
+            right: 2rem;
         }
     }
 }

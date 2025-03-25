@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
@@ -14,7 +14,7 @@ import { DynamicFormComponent } from '../dynamic-form/dynamic-form.component';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   constructor (private helperFunctions: helperFunctions) {}
 
   invalidJson = false
@@ -28,6 +28,15 @@ export class HomeComponent {
   valueChanged() {
     this.invalidJson = false
   }
+
+  ngOnInit() {
+    if (localStorage.getItem('initialForm')) {
+      const initialFormJson = localStorage.getItem('initialForm')!;
+      const formattedJson = this.helperFunctions.formatJson(initialFormJson);
+      this.jsonForm.controls.json.setValue(formattedJson);
+      this.generatedFormJson = JSON.parse(formattedJson);
+    }
+  } 
 
   submitJSON(event: Event) {
     event.preventDefault()
