@@ -15,7 +15,7 @@
             Show JSON form
         }
     </button>
-    <button mat-fab extended aria-label="Autofill form" class="autofill-form" (click)="autoFillForm()">
+    <button mat-fab extended aria-label="Autofill form" class="autofill-form" (click)="autoFillForm()" [disabled]="jsonServerDown">
         Autofill form
     </button>
     <form [formGroup]="autoSaveForm" class="autosave-form">
