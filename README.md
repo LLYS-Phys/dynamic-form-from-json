@@ -210,7 +210,8 @@
           "dependencies": [
             {
               "field": "userId",
-              "value": "TEST"
+              "value": "TEST",
+              "type": "has"
             }
           ]
         }
@@ -267,7 +268,8 @@
               "dependencies": [
                 {
                   "field": "adminLevel",
-                  "value": "SuperAdmin"
+                  "value": "SuperAdmin",
+                  "caseSensitive": "true"
                 }
               ]
             }
