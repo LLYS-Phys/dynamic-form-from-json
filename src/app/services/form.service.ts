@@ -58,7 +58,7 @@ export class FormService {
     private fillField(field: FieldConfig, form: FormGroup) {
         for (const [key, value] of Object.entries(form.value)) {
             if (key == field.name) {
-            field.value = value as string
+                field.value = value as string
             }
         }
     }

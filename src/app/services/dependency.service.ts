@@ -6,7 +6,7 @@ import { FormGroup } from "@angular/forms";
     providedIn: 'root'
 })
 export class DependencyService {
-    groupDependencies(group: FormGroupConfig, form: FormGroup) {
+    groupDependencies(group: FormGroupConfig, form: FormGroup): boolean {
         return !group.dependencies?.some(dependencyGroup => {
             if (!dependencyGroup.dependencies || dependencyGroup.dependencies.length === 0) {
               return true;
@@ -27,7 +27,7 @@ export class DependencyService {
         });
     }
 
-    fieldDependencies(field: FieldConfig, form: FormGroup) {
+    fieldDependencies(field: FieldConfig, form: FormGroup): boolean {
         return !field.dependencies?.some(dependencyGroup => {
             if (!dependencyGroup.dependencies || dependencyGroup.dependencies.length === 0) {
               return true;
