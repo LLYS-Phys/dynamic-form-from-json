@@ -27,7 +27,7 @@
   - Pattern matching
 - **Field Dependencies**:
   - Supports "AND" and "OR" dependency rules.
-  - Dependencies can enforce conditions like `minlength`, `maxlength`, `email`, `pattern`, or an exact value match.
+  - Dependencies can enforce conditions like `minlength`, `maxlength`, `email`, `pattern`, `has` (for partial value match), or an exact value match (default - no type).
 - **Mock JSON Server**:
   - Used for autofilling fields based on predefined data.
   - Started with: `json-server --watch db.json`
