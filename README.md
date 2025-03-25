@@ -7,6 +7,11 @@
 ## Features
 
 - **Dynamic Form Generation**: Converts a JSON object into a fully functional form.
+- **Autosave Functionality**:
+  - Toggle-based autosave feature
+  - Saves toggle state
+  - Preserves initial form configuration
+  - Stores partially filled form data
 - **Supported Field Types**:
   - Text
   - Textarea
@@ -305,6 +310,28 @@ To add or modify autofill data:
 3. Restart the JSON server to apply changes
 
 The application will automatically use these values to prefill matching form fields when loaded.
+
+## Autosave Feature
+
+The application now includes an autosave functionality with the following capabilities:
+
+- **Autosave Toggle**: A switch to enable/disable automatic saving of form data
+- **Persistent State**: 
+  - Saves the autosave toggle state
+  - Stores the initial form configuration
+  - Preserves partially completed form fields
+- **Data Preservation**: 
+  - Automatically saves form data at regular intervals when enabled
+  - Allows users to resume form filling from the last saved state
+- **Local Storage**: Utilizes browser's local storage for saving form state
+
+### Autosave Usage
+
+1. Locate the autosave toggle in the form interface
+2. Switch the toggle to enable automatic saving
+3. Begin filling out the form
+4. The application will automatically save your progress
+5. If the browser is closed or refreshed, you can continue from the last saved state
 
 ## Getting Started
 
