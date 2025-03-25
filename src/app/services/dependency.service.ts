@@ -70,6 +70,16 @@ export class DependencyService {
                     return emailPattern.test(dependentControl.value)
                 case 'pattern':
                     return dependency.value.test(dependentControl.value)
+                case 'has':
+                    if (dependentControl.value) {
+                      if (dependency.caseSensitive == "true") {
+                        return dependentControl.value.toString().includes(dependency.value)
+                      }
+                      return dependentControl.value.toString().toLowerCase().includes(dependency.value.toLowerCase())
+                    }
+                    else {
+                      return false
+                    }
                 default:
                     return false
             }
@@ -100,6 +110,16 @@ export class DependencyService {
                     return emailPattern.test(dependentControl.value)
                 case 'pattern':
                     return dependency.value.test(dependentControl.value)
+                case 'has':
+                  if (dependentControl.value) {
+                    if (dependency.caseSensitive == "true") {
+                      return dependentControl.value.toString().includes(dependency.value)
+                    }
+                    return dependentControl.value.toString().toLowerCase().includes(dependency.value.toLowerCase())
+                  }
+                  else {
+                    return false
+                  }
                 default:
                     return false
             }
